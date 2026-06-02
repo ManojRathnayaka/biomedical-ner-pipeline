@@ -11,20 +11,6 @@ All configurations utilize a standardized sequence extraction backbone consistin
 1. **Static Embeddings (Word2Vec, GloVe, FastText):** Utilizes a hybrid **CharCNN + BiLSTM + CRF** architecture. A character-level 1D Convolutional Neural Network extracts morphological features (prefixes/suffixes) to handle out-of-vocabulary (OOV) terms, which are concatenated with the word embeddings.
 2. **Contextual Embeddings (ELMo):** Extracted deep contextual features are fed directly into a sequence-modeling **BiLSTM + CRF** framework.
 3. **Fine-tuned Transformer (PubMedBERT):** Fine-tuned natively with a custom layer-wise learning rate decay (LLRD) and Automatic Mixed Precision (AMP), coupled with a downstream **BiLSTM + CRF** classifier.
-
-```mermaid
-graph TD
-    A[Sentence] --> B[Tokenizer]
-    B --> C[Embedding Lookup]
-    B -.->|Only for Static| D[CharCNN]
-    C --> E[Concatenation / Vector Representation]
-    D -.-> E
-    E --> F[Bidirectional LSTM]
-    F --> G[Linear Layer]
-    G --> H[Conditional Random Field CRF]
-    H --> I[Tag Sequence]
-```
-
 ---
 
 ## Benchmarking Results
